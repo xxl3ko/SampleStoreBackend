@@ -11,6 +11,7 @@
 {% for sample in samples %}
     <div> {{ sample.title }} </div>
     <div> {{ sample.genre }} </div>
+    <audio id="audio" src="{{ sample.file_src.url }}" controls></audio>
 {% endfor %}
 </body>
 </html>

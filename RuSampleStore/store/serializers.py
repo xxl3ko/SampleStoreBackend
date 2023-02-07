@@ -7,4 +7,4 @@ class SampleSerializer(ModelSerializer):
 
     class Meta:
         model = Sample
-        fields = ('title', 'genre')
+        fields = '__all__'
