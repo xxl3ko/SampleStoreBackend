@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 
-from store.models import Sample
-from store.serializers import SampleSerializer
+from .models import Sample
+from .serializers import SampleSerializer
 
 
 def main_page(request):

@@ -18,18 +18,20 @@ from django.urls import path
 
 from django.conf import settings
 from django.conf.urls.static import static
+
+from store.views import main_page, SampleView
+
 # from rest_framework.routers import SimpleRouter
 
-from store.views import SampleView, main_page
 
 # router = SimpleRouter()
 
 # router.register('api/samples', SampleView.as_view())
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', main_page),
-    path('api/sample', SampleView.as_view())
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('', main_page),
+                  path('api/sample', SampleView.as_view())
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += router.urls
