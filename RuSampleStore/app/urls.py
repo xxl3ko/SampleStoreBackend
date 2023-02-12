@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from store.views import main_page, SampleView
+from store.views import main_page, SampleView, SamplePackView
 
 # from rest_framework.routers import SimpleRouter
 
@@ -31,7 +31,8 @@ from store.views import main_page, SampleView
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', main_page),
-                  path('api/sample', SampleView.as_view())
+                  path('api/sample', SampleView.as_view()),
+                  path('api/sample_pack', SamplePackView.as_view()),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += router.urls

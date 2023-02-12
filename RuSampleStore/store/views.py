@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 
-from .models import Sample
-from .serializers import SampleSerializer
+from .models import Sample, SamplePack
+from .serializers import SampleSerializer, SamplePackSerializer
 
 
 def main_page(request):
@@ -12,3 +12,6 @@ def main_page(request):
 class SampleView(generics.ListCreateAPIView):
     queryset = Sample.objects.all()
     serializer_class = SampleSerializer
+class SamplePackView(generics.ListCreateAPIView):
+    queryset = SamplePack.objects.all()
+    serializer_class = SamplePackSerializer
