@@ -21,6 +21,7 @@ class SamplePack(models.Model):
 
 class Genre(models.Model):
     title = models.CharField(max_length=100)
+    oleg = models.CharField(max_length=10, null=True)
 
     def __str__(self):
         return self.title
