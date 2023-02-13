@@ -3,7 +3,7 @@ from django.db import models
 
 class Sample(models.Model):
     title = models.CharField(max_length=100)
-    sample_pack = models.ForeignKey('Sample', default=None, null=True, on_delete=models.SET_NULL)
+    sample_pack = models.ForeignKey('SamplePack', default=None, null=True, on_delete=models.SET_NULL)
     genre = models.ForeignKey('Genre', default=None, null=True, on_delete=models.SET_NULL)
     file_src = models.FileField(upload_to='', null=True)
 
@@ -21,7 +21,6 @@ class SamplePack(models.Model):
 
 class Genre(models.Model):
     title = models.CharField(max_length=100)
-    oleg = models.CharField(max_length=10, null=True)
 
     def __str__(self):
         return self.title

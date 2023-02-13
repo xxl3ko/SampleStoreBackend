@@ -12,6 +12,8 @@ def main_page(request):
 class SampleView(generics.ListCreateAPIView):
     queryset = Sample.objects.all()
     serializer_class = SampleSerializer
+
+
 class SamplePackView(generics.ListCreateAPIView):
     queryset = SamplePack.objects.all()
     serializer_class = SamplePackSerializer
