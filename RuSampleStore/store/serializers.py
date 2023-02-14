@@ -8,6 +8,7 @@ class SampleSerializer(ModelSerializer):
         model = Sample
         fields = '__all__'
 
+
 class SamplePackSerializer(ModelSerializer):
     class Meta:
         model = SamplePack

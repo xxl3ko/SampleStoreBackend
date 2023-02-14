@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, viewsets
 
 from .models import Sample, SamplePack
 from .serializers import SampleSerializer, SamplePackSerializer
@@ -14,6 +14,11 @@ class SampleView(generics.ListCreateAPIView):
     serializer_class = SampleSerializer
 
 
-class SamplePackView(generics.ListCreateAPIView):
+class SampleViewSet(viewsets.ModelViewSet):
+    queryset = Sample.objects.all()
+    serializer_class = SampleSerializer
+
+
+class SamplePackViewSet(viewsets.ModelViewSet):
     queryset = SamplePack.objects.all()
     serializer_class = SamplePackSerializer
