@@ -26,8 +26,6 @@ router = routers.DefaultRouter()
 router.register(r'samplepack', SamplePackViewSet)
 router.register(r'sample', SampleViewSet)
 
-print(router.urls)
-
 urlpatterns = [
                   path('', main_page),
                   path('admin/', admin.site.urls),
