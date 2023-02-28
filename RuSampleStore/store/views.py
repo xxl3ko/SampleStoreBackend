@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
+
 from .models import Sample, SamplePack
 from .serializers import SampleSerializer, SamplePackSerializer
 
@@ -19,3 +21,4 @@ class SampleViewSet(viewsets.ModelViewSet):
 class SamplePackViewSet(viewsets.ModelViewSet):
     queryset = SamplePack.objects.all()
     serializer_class = SamplePackSerializer
+    permission_classes = [IsAuthenticated]
