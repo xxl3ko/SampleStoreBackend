@@ -9,15 +9,16 @@ class SampleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SamplePackSerializer(serializers.ModelSerializer):
-    samples = serializers.StringRelatedField(many=True)
-
-    class Meta:
-        model = SamplePack
-        fields = '__all__'
-
-
 class LabelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Label
         fields = '__all__'
+
+
+class SamplePackSerializer(serializers.ModelSerializer):
+    samples = SampleSerializer(many=True)
+
+    class Meta:
+        model = SamplePack
+        fields = '__all__'
+        depth = 1
