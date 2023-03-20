@@ -19,10 +19,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from store.views import main_page, SamplePackViewSet, SampleViewSet
+from store.views import main_page, SamplePackViewSet, SampleViewSet, LabelViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'label', LabelViewSet)
 router.register(r'samplepack', SamplePackViewSet)
 router.register(r'sample', SampleViewSet)
 
