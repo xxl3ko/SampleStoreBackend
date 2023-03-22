@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Sample, SamplePack, Label
+from .models import Sample, Pack, Label
 
 
 class SampleSerializer(serializers.ModelSerializer):
@@ -15,10 +15,10 @@ class LabelSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SamplePackSerializer(serializers.ModelSerializer):
+class PackSerializer(serializers.ModelSerializer):
     samples = SampleSerializer(many=True)
 
     class Meta:
-        model = SamplePack
+        model = Pack
         fields = '__all__'
         depth = 1

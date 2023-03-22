@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Sample, SamplePack, Label
-from .serializers import SampleSerializer, SamplePackSerializer, LabelSerializer
+from .models import Sample, Pack, Label
+from .serializers import SampleSerializer, PackSerializer, LabelSerializer
 
 
 def main_page(request):
@@ -25,7 +25,7 @@ class SampleViewSet(viewsets.ModelViewSet):
     filterset_fields = ['sample_pack']
 
 
-class SamplePackViewSet(viewsets.ModelViewSet):
-    queryset = SamplePack.objects.all()
-    serializer_class = SamplePackSerializer
+class PackViewSet(viewsets.ModelViewSet):
+    queryset = Pack.objects.all()
+    serializer_class = PackSerializer
     #permission_classes = [IsAuthenticated]
