@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Sample, Pack, Label, UserSampleRelation
+from .models import Sample, Pack, Label, Relation
 
 
 class SampleSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class PackSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class UserSampleRelationSerializer(serializers.ModelSerializer):
+class RelationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserSampleRelation
+        model = Relation
         fields = ('sample', 'fav')
