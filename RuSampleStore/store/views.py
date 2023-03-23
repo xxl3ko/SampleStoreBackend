@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import GenericViewSet
 
-from .models import Sample, Pack, Label
-from .serializers import SampleSerializer, PackSerializer, LabelSerializer
+from .models import Sample, Pack, Label, UserSampleRelation
+from .serializers import SampleSerializer, PackSerializer, LabelSerializer, UserSampleRelationSerializer
 
 
 def main_page(request):
@@ -28,4 +30,10 @@ class SampleViewSet(viewsets.ModelViewSet):
 class PackViewSet(viewsets.ModelViewSet):
     queryset = Pack.objects.all()
     serializer_class = PackSerializer
-    #permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+
+
+class UserSampleRelationView(UpdateModelMixin, GenericViewSet):
+    queryset = UserSampleRelation.objects.all()
+    serializer_class = UserSampleRelationSerializer
+    lookup_field = 'sample'

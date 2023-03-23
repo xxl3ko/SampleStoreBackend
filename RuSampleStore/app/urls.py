@@ -19,13 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from store.views import main_page, PackViewSet, SampleViewSet, LabelViewSet
+from store.views import main_page, PackViewSet, SampleViewSet, LabelViewSet, UserSampleRelationView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'label', LabelViewSet)
 router.register(r'samplepack', PackViewSet)
 router.register(r'sample', SampleViewSet)
+router.register(r'relation', UserSampleRelationView)
 
 urlpatterns = [
                   path('', main_page),
