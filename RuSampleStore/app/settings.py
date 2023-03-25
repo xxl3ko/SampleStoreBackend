@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'store',
     'orders',
+
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -147,4 +149,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
-

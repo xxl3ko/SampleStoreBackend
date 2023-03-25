@@ -1,7 +1,8 @@
+from django.db.models import Prefetch
 from django.shortcuts import render
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.mixins import UpdateModelMixin
+from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
@@ -21,10 +22,23 @@ class LabelViewSet(viewsets.ModelViewSet):
 
 
 class SampleViewSet(viewsets.ModelViewSet):
-    queryset = Sample.objects.all()
+    #queryset = Sample.objects.all().prefetch_related('triton')
     serializer_class = SampleSerializer
+    # permission_classes = [IsAuthenticated]
+
+    # Sample.objects.all().prefetch_related(1
+
+    #     Prefetch('rels', queryset=Relation.object.filter(user=user))
+    # )
+
     # filter_backends = [DjangoFilterBackend]
     # filterset_fields = ['sample_pack']
+
+    def get_queryset(self):
+        user = self.request.user
+        return Sample.objects.all().prefetch_related(
+            Prefetch('triton', queryset=Relation.objects.filter(user=user).defer('fav'))
+        )
 
 
 class PackViewSet(viewsets.ModelViewSet):
@@ -33,7 +47,7 @@ class PackViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
 
 
-class RelationView(UpdateModelMixin, GenericViewSet):
+class RelationView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     queryset = Relation.objects.all()
     serializer_class = RelationSerializer
     permission_classes = [IsAuthenticated]
