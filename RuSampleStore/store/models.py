@@ -6,7 +6,7 @@ class Relation(models.Model):
     objects = models.Manager()
 
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    sample = models.ForeignKey('Sample', default=None, related_name='triton', on_delete=models.CASCADE)
+    sample = models.ForeignKey('Sample', default=None, related_name='rels', on_delete=models.CASCADE)
 
     fav = models.BooleanField(default=False)
 

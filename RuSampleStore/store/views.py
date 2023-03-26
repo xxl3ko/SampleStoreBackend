@@ -22,7 +22,7 @@ class LabelViewSet(viewsets.ModelViewSet):
 
 
 class SampleViewSet(viewsets.ModelViewSet):
-    #queryset = Sample.objects.all().prefetch_related('triton')
+    # queryset = Sample.objects.all().prefetch_related('triton')
     serializer_class = SampleSerializer
     # permission_classes = [IsAuthenticated]
 
@@ -36,8 +36,8 @@ class SampleViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Sample.objects.all().prefetch_related(
-            Prefetch('triton', queryset=Relation.objects.filter(user=user).defer('fav'))
+        return Sample.objects.all().select_related('label').prefetch_related(
+            Prefetch('rels', queryset=Relation.objects.filter(user=user))
         )
 
 

@@ -11,13 +11,14 @@ class RelationSerializer(serializers.ModelSerializer):
 
 class SampleSerializer(serializers.ModelSerializer):
     # rels = RelationSerializer(many=True)
+    favs = serializers.CharField(source='rels.fav')
 
     # fav = serializers.CharField(source='rels.fav')
 
     class Meta:
         model = Sample
-        fields = ['id', 'title', 'label', 'triton']
-        depth = 1
+        fields = ['id', 'title', 'label']
+        # depth = 1
 
 
 class LabelSerializer(serializers.ModelSerializer):
