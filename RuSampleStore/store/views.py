@@ -32,9 +32,9 @@ class SampleViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Sample.objects.all().select_related('label').prefetch_related(
-            Prefetch('rels', queryset=Relation.objects.filter(user=user))
-        ).values('id', 'rels')
+        return Sample.objects.select_related('label', 'pack', 'genre').all().prefetch_related(
+            Prefetch('rels', queryset=Relation.objects.filter(user=user).only('fav', 'sample', 'user'))
+        )
 
 
 class PackViewSet(viewsets.ModelViewSet):

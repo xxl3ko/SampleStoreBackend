@@ -6,17 +6,15 @@ from .models import Sample, Pack, Label, Relation
 class RelationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relation
-        fields = '__all__'
+        fields = ['fav']
 
 
 class SampleSerializer(serializers.ModelSerializer):
-    # rels = RelationSerializer(many=True)
-
-    # fav = serializers.CharField(source='rels.fav')
+    rels = RelationSerializer(many=True)
 
     class Meta:
         model = Sample
-        fields = ['rels']
+        fields = '__all__'
         depth = 1
 
 
