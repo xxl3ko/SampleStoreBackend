@@ -24,21 +24,17 @@ class LabelViewSet(viewsets.ModelViewSet):
 class SampleViewSet(viewsets.ModelViewSet):
     # queryset = Sample.objects.all().prefetch_related('triton')
     serializer_class = SampleSerializer
+
     # permission_classes = [IsAuthenticated]
 
-    # Sample.objects.all().prefetch_related(1
-
-    #     Prefetch('rels', queryset=Relation.object.filter(user=user))
-    # )
-
     # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['sample_pack']
+    # filterset_fields = ['sample_pack'] .select_related('label')
 
     def get_queryset(self):
         user = self.request.user
         return Sample.objects.all().select_related('label').prefetch_related(
             Prefetch('rels', queryset=Relation.objects.filter(user=user))
-        )
+        ).values('id', 'rels')
 
 
 class PackViewSet(viewsets.ModelViewSet):

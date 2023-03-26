@@ -150,7 +150,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-"""LOGGING = {
+LOGGING = {
     'version': 1,
     'handlers': {
         'console': {
@@ -163,4 +163,4 @@ REST_FRAMEWORK = {
             'level': 'DEBUG',
         }
     }
-}"""
+}
