@@ -22,13 +22,8 @@ class LabelViewSet(viewsets.ModelViewSet):
 
 
 class SampleViewSet(viewsets.ModelViewSet):
-    # queryset = Sample.objects.all().prefetch_related('triton')
     serializer_class = SampleSerializer
-
-    # permission_classes = [IsAuthenticated]
-
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['sample_pack'] .select_related('label')
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -38,9 +33,17 @@ class SampleViewSet(viewsets.ModelViewSet):
 
 
 class PackViewSet(viewsets.ModelViewSet):
-    queryset = Pack.objects.all()
+    # queryset = Pack.objects.all()
     serializer_class = PackSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Pack.objects.all().select_related('label', 'genre').prefetch_related(
+            Prefetch('samples', queryset=Sample.objects.select_related('label', 'pack', 'genre').prefetch_related(
+                Prefetch('rels', queryset=Relation.objects.filter(user=user).only('fav', 'sample', 'user'))
+            ))
+        )
 
 
 class RelationView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
