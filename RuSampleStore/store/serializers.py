@@ -6,7 +6,7 @@ from .models import Sample, Pack, Label, Relation
 class RelationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relation
-        fields = 'пше '
+        fields = '__all__'
 
 
 class SampleSerializer(serializers.ModelSerializer):

@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from base.services import get_path_upload_sample, get_path_upload_cover
+
 
 class Relation(models.Model):
     objects = models.Manager()
@@ -17,29 +19,43 @@ class Relation(models.Model):
 class Sample(models.Model):
     objects = models.Manager()
 
-    title = models.CharField(max_length=100)
-    label = models.ForeignKey('Label', null=True, on_delete=models.SET_NULL)
-    pack = models.ForeignKey('Pack', related_name='samples', default=None, null=True,
-                             on_delete=models.SET_NULL)
-    genre = models.ForeignKey('Genre', default=None, null=True, on_delete=models.SET_NULL)
-    file_src = models.FileField(upload_to='', null=True)
+    name = models.CharField(max_length=100)
+    label = models.ForeignKey('Label',
+                              null=True,
+                              on_delete=models.SET_NULL
+                              )
+    pack = models.ForeignKey('Pack',
+                             related_name='samples',
+                             default=None,
+                             null=True,
+                             on_delete=models.SET_NULL
+                             )
+    genre = models.ForeignKey('Genre',
+                              default=None,
+                              null=True,
+                              on_delete=models.SET_NULL
+                              )
+    file_src = models.FileField(upload_to=get_path_upload_sample,
+                                null=True
+                                )
 
     # users = models.ManyToManyField(User, through='Relation', related_name='suplex')
 
     def __str__(self):
-        return f'{self.id}: {self.title}'
+        return f'{self.id}: {self.name}'
 
 
 class Pack(models.Model):
     objects = models.Manager()
 
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     label = models.ForeignKey('Label', default=None, null=True, on_delete=models.SET_NULL)
-    cover_src = models.ImageField(upload_to='', null=True)
+    cover = models.ImageField(upload_to=get_path_upload_cover,
+                              null=True)
     genre = models.ForeignKey('Genre', default=None, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Genre(models.Model):
