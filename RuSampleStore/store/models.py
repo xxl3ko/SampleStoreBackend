@@ -13,7 +13,7 @@ class Relation(models.Model):
     fav = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.user.username} | {self.sample.title} | Fav: {self.fav}'
+        return f'{self.user.username} | {self.sample.name} | Fav: {self.fav}'
 
 
 class Sample(models.Model):
