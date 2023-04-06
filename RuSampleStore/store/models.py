@@ -61,14 +61,14 @@ class Pack(models.Model):
 class Genre(models.Model):
     objects = models.Manager()
 
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title
 
 
 class Label(models.Model):
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     objects = models.Manager()
 
     def __str__(self):
