@@ -19,25 +19,25 @@ class Relation(models.Model):
 class Sample(models.Model):
     objects = models.Manager()
 
+    TYPE_CHOICES = [
+        ('One Shot', 'One Shot'),
+        ('loop', 'Loop')
+    ]
+
     name = models.CharField(max_length=100)
-    label = models.ForeignKey('Label',
-                              null=True,
-                              on_delete=models.SET_NULL
-                              )
+    label = models.ForeignKey('Label', null=True, on_delete=models.SET_NULL)
     pack = models.ForeignKey('Pack',
                              related_name='samples',
                              default=None,
                              null=True,
                              on_delete=models.SET_NULL
                              )
-    genre = models.ForeignKey('Genre',
-                              default=None,
-                              null=True,
-                              on_delete=models.SET_NULL
-                              )
-    file_src = models.FileField(upload_to=get_path_upload_sample,
-                                null=True
-                                )
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, null=True, default=None)
+    genre = models.ForeignKey('Genre', default=None, null=True, on_delete=models.SET_NULL)
+    tempo = models.PositiveIntegerField(default=None, null=True)
+    file = models.FileField(upload_to=get_path_upload_sample,
+                            null=True
+                            )
 
     # users = models.ManyToManyField(User, through='Relation', related_name='suplex')
 
@@ -50,8 +50,7 @@ class Pack(models.Model):
 
     name = models.CharField(max_length=100)
     label = models.ForeignKey('Label', default=None, null=True, on_delete=models.SET_NULL)
-    cover = models.ImageField(upload_to=get_path_upload_cover,
-                              null=True)
+    cover = models.ImageField(upload_to=get_path_upload_cover, null=True)
     genre = models.ForeignKey('Genre', default=None, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -64,7 +63,7 @@ class Genre(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Label(models.Model):
@@ -72,4 +71,4 @@ class Label(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.title
+        return self.name
