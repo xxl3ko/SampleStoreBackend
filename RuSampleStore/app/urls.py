@@ -24,7 +24,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'label', LabelViewSet)
-router.register(r'samplepack', PackViewSet, basename='samplepack')
+router.register(r'pack', PackViewSet, basename='pack')
 router.register(r'sample', SampleViewSet, basename='sample')
 router.register(r'relation', RelationView)
 

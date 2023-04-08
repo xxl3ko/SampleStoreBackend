@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Sample, Pack, Label, Relation
@@ -28,7 +29,7 @@ class SampleViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Sample.objects.select_related('label', 'pack', 'genre').all().prefetch_related(
-            Prefetch('rels', queryset=Relation.objects.filter(user=user).only('fav', 'sample', 'user'))
+            Prefetch('rels', queryset=Relation.objects.filter(user=user).only('isFavorite', 'sample', 'user'))
         )
 
 
@@ -41,7 +42,7 @@ class PackViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return Pack.objects.all().select_related('label', 'genre').prefetch_related(
             Prefetch('samples', queryset=Sample.objects.select_related('label', 'pack', 'genre').prefetch_related(
-                Prefetch('rels', queryset=Relation.objects.filter(user=user).only('fav', 'sample', 'user'))
+                Prefetch('rels', queryset=Relation.objects.filter(user=user).only('isFavorite', 'sample', 'user'))
             ))
         )
 
@@ -58,3 +59,10 @@ class RelationView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
             sample_id=self.kwargs['sample']
         )
         return obj
+
+
+class DownloadSampleView(APIView):
+    """ Скачивание сэмпла
+    """
+
+
