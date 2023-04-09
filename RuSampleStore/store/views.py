@@ -1,10 +1,11 @@
 from django.db.models import Prefetch
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from django.http import FileResponse
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Sample, Pack, Label, Relation
@@ -65,4 +66,10 @@ class DownloadSampleView(APIView):
     """ Скачивание сэмпла
     """
 
-
+    def get(self, request, pk):
+        sample = get_object_or_404(Sample, id=pk)
+        user = self.request.user
+        print(user)
+        return FileResponse(
+            open(sample.file.path, 'rb'), filename=sample.file.name, as_attachment=True
+        )
