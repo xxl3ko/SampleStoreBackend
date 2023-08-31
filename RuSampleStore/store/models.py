@@ -17,6 +17,7 @@ class Relation(models.Model):
 
 
 class Sample(models.Model):
+    """Сэмпл"""
     objects = models.Manager()
 
     TYPE_CHOICES = [
@@ -41,6 +42,7 @@ class Sample(models.Model):
 
 
 class Pack(models.Model):
+    """Сэмплпак который содержит в себе сэмплы"""
     objects = models.Manager()
 
     name = models.CharField(max_length=100)
@@ -54,6 +56,7 @@ class Pack(models.Model):
 
 
 class Genre(models.Model):
+    """Жанр сэмпла"""
     objects = models.Manager()
 
     name = models.CharField(max_length=100)
@@ -63,6 +66,7 @@ class Genre(models.Model):
 
 
 class Label(models.Model):
+    """Лэйбл кому принадлежит сэмпл"""
     name = models.CharField(max_length=100)
     objects = models.Manager()
 
@@ -71,6 +75,7 @@ class Label(models.Model):
 
 
 class Instrument(models.Model):
+    """Инструмент который звучит в сэмпле"""
     name = models.CharField(max_length=100)
 
     def __str__(self):
