@@ -5,6 +5,7 @@ from base.services import get_path_upload_sample, get_path_upload_cover
 
 
 class Relation(models.Model):
+    """Отношение между пользователем и сэмплом (Избранное)"""
     objects = models.Manager()
 
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
@@ -17,7 +18,7 @@ class Relation(models.Model):
 
 
 class Sample(models.Model):
-    """Сэмпл"""
+    """Сэмпл - основная единица проекта"""
     objects = models.Manager()
 
     TYPE_CHOICES = [
