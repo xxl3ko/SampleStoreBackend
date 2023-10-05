@@ -4,7 +4,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from store.views import main_page, PackViewSet, SampleViewSet, LabelViewSet, RelationView, DownloadSampleView
+from store.views import PackViewSet, SampleViewSet, LabelViewSet, RelationView, DownloadSampleView
 from rest_framework import routers
 
 
@@ -15,7 +15,7 @@ router.register(r'sample', SampleViewSet, basename='sample')
 router.register(r'relation', RelationView)
 
 urlpatterns = [
-                  path('', main_page),
+                  #path('', main_page),
                   path('admin/', admin.site.urls),
                   path('api/', include(router.urls)),
                   path('api/auth/', include('djoser.urls')),
