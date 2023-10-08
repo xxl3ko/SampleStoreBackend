@@ -1,5 +1,5 @@
 from django.db.models import Prefetch
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 # from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
@@ -10,7 +10,6 @@ from rest_framework.viewsets import GenericViewSet
 
 from .models import Sample, Pack, Label, Relation
 from .serializers import SampleSerializer, PackSerializer, LabelSerializer, RelationSerializer
-
 
 """def main_page(request):
     return render(request, 'index.html', {'samples': Sample.objects.all})"""
