@@ -1,7 +1,11 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from base.services import get_path_upload_sample, get_path_upload_cover
+
+
+class User(AbstractUser):
+    score = models.IntegerField(null=True)
 
 
 class Relation(models.Model):

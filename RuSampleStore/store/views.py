@@ -54,10 +54,12 @@ class RelationView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     lookup_field = 'sample'
 
     def get_object(self):
-        obj, _ = Relation.objects.get_or_create(
+        obj, ttt = Relation.objects.get_or_create(
             user=self.request.user,
             sample_id=self.kwargs['sample']
         )
+        print(type(obj))
+        print(ttt)
         return obj
 
 
@@ -71,3 +73,9 @@ class DownloadSampleView(APIView):
         return FileResponse(
             open(sample.file.path, 'rb'), filename=sample.file.name, as_attachment=True
         )
+
+
+class BuySampleView(APIView):
+    """ Покупка сэмпла
+    """
+
