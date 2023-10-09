@@ -94,8 +94,9 @@ class BuyingSampleView(APIView):
             return Response({'mes': 'not money'})
 
         user.score = user.score - sample.price
+        user.save()
 
         print(type(user))
-        print(sample.price)
+        print(type(sample))
         print(request.data['isPurchased'])
         return Response({'test': 'Ura'})
