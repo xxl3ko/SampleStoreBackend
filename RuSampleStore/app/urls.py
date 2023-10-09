@@ -12,7 +12,7 @@ router.register(r'label', LabelViewSet)
 router.register(r'pack', PackViewSet, basename='pack')
 router.register(r'sample', SampleViewSet, basename='sample')
 router.register(r'relation', RelationView)
-router.register(r'buying', BuyingSampleView, basename="buying")
+#router.register(r'buying', BuyingSampleView)
 
 urlpatterns = [
                   # path('', main_page),
@@ -20,5 +20,6 @@ urlpatterns = [
                   path('api/', include(router.urls)),
                   path('api/auth/', include('djoser.urls')),
                   path('api/auth/', include('djoser.urls.authtoken')),
-                  path('api/sample/download/<int:pk>', DownloadSampleView.as_view())
+                  path('api/sample/download/<int:pk>', DownloadSampleView.as_view()),
+                  path('api/buying/', BuyingSampleView.as_view())
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

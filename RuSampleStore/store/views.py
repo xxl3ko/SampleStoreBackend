@@ -1,6 +1,7 @@
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.response import Response
 # from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated
@@ -75,19 +76,26 @@ class DownloadSampleView(APIView):
         )
 
 
-class BuyingSampleView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
+class BuyingSampleView(APIView):
     """ Покупка сэмпла
     """
-    queryset = Relation.objects.all()
-    serializer_class = RelationSerializer
-    permission_classes = [IsAuthenticated]
-    lookup_field = 'sample'
 
-    def get_object(self):
-        obj, _ = Relation.objects.get_or_create(
-            user=self.request.user,
-            sample_id=self.kwargs['sample']
-        )
-        print(self.request.user.score)
-        print(self.kwargs)
-        return obj
+    #    queryset = Relation.objects.all()
+    #    serializer_class = RelationSerializer
+    #    permission_classes = [IsAuthenticated]
+    #    lookup_field = 'sample'
+
+    def get(self, request):
+        user = self.request.user
+        sample_id = self.request.data['sample_id']
+        sample = Sample.objects.get(pk=sample_id)
+
+        if user.score < sample.price:
+            return Response({'mes': 'not money'})
+
+        user.score = user.score - sample.price
+
+        print(type(user))
+        print(sample.price)
+        print(request.data['isPurchased'])
+        return Response({'test': 'Ura'})
