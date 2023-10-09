@@ -58,8 +58,8 @@ class RelationView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
             user=self.request.user,
             sample_id=self.kwargs['sample']
         )
-        print(type(obj))
-        print(ttt)
+        print(self.request.user.score)
+        print(self.kwargs)
         return obj
 
 
@@ -75,7 +75,19 @@ class DownloadSampleView(APIView):
         )
 
 
-class BuySampleView(APIView):
+class BuyingSampleView(RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     """ Покупка сэмпла
     """
+    queryset = Relation.objects.all()
+    serializer_class = RelationSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'sample'
 
+    def get_object(self):
+        obj, _ = Relation.objects.get_or_create(
+            user=self.request.user,
+            sample_id=self.kwargs['sample']
+        )
+        print(self.request.user.score)
+        print(self.kwargs)
+        return obj
