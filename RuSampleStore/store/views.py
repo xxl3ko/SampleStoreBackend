@@ -11,6 +11,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from .models import Sample, Pack, Label, Relation
 from .serializers import SampleSerializer, PackSerializer, LabelSerializer, RelationSerializer
+from .services import dec_scrore
 
 """def main_page(request):
     return render(request, 'index.html', {'samples': Sample.objects.all})"""
@@ -85,18 +86,8 @@ class BuyingSampleView(APIView):
     #    permission_classes = [IsAuthenticated]
     #    lookup_field = 'sample'
 
-    def get(self, request):
-        user = self.request.user
-        sample_id = self.request.data['sample_id']
-        sample = Sample.objects.get(pk=sample_id)
-
-        if user.score < sample.price:
-            return Response({'mes': 'not money'})
-
-        user.score = user.score - sample.price
-        user.save()
-
-        print(type(user))
-        print(type(sample))
-        print(request.data['isPurchased'])
+    def patch(self, request):
+        dec_scrore(request)
+        cur_score = self.request.user.score
+        print(cur_score)
         return Response({'test': 'Ura'})
