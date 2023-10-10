@@ -30,3 +30,10 @@ class PackSerializer(serializers.ModelSerializer):
         model = Pack
         fields = '__all__'
         depth = 1
+
+
+class BuyingSampleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Relation
+        fields = '__all__'

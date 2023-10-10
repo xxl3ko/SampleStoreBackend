@@ -1,6 +1,8 @@
 from store.models import Sample
 from rest_framework.response import Response
 
+from store.serializers import BuyingSampleSerializer
+
 
 def dec_scrore(request):
     user = request.user
@@ -12,3 +14,8 @@ def dec_scrore(request):
     user.score = user.score - sample.price
     user.save()
     return Response({'mes': 'all OK'})
+
+
+def is_purchased(request):
+    serializer = BuyingSampleSerializer(data=)
+    pass

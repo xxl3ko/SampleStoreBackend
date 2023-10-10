@@ -82,12 +82,13 @@ class BuyingSampleView(APIView):
     """
 
     #    queryset = Relation.objects.all()
-    #    serializer_class = RelationSerializer
+    serializer_class = RelationSerializer
     #    permission_classes = [IsAuthenticated]
     #    lookup_field = 'sample'
 
     def patch(self, request):
         dec_scrore(request)
+        is_purchased(request)
         cur_score = self.request.user.score
         print(cur_score)
         return Response({'test': 'Ura'})
