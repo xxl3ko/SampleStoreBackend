@@ -1,4 +1,4 @@
-from store.models import Sample
+from store.models import Sample, Relation
 from rest_framework.response import Response
 
 from store.serializers import BuyingSampleSerializer
@@ -12,10 +12,16 @@ def dec_scrore(request):
         return Response({'mes': 'not money'})
 
     user.score = user.score - sample.price
+    print(user)
     user.save()
     return Response({'mes': 'all OK'})
 
 
 def is_purchased(request):
-    serializer = BuyingSampleSerializer(data=)
-    pass
+    buy, _ = Relation.objects.get_or_create(
+            user=request.user,
+            sample_id=request.data['sample_id'],
+        )
+    print(type(buy))
+    buy.save()
+    return print('Rel create')
