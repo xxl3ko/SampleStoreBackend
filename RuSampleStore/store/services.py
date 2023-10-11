@@ -1,4 +1,4 @@
-from store.models import Sample, Relation
+from store.models import Sample, Relation, BuyingSample
 from rest_framework.response import Response
 
 from store.serializers import BuyingSampleSerializer
@@ -18,10 +18,9 @@ def dec_scrore(request):
 
 
 def is_purchased(request):
-    buy, _ = Relation.objects.get_or_create(
+    obj, _ = BuyingSample.objects.get_or_create(
             user=request.user,
             sample_id=request.data['sample_id'],
         )
-    print(type(buy))
-    buy.save()
-    return print('Rel create')
+
+    return obj

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Sample, Pack, Label, Relation
+from .models import Sample, Pack, Label, Relation, BuyingSample
 
 
 class RelationSerializer(serializers.ModelSerializer):
@@ -35,5 +35,9 @@ class PackSerializer(serializers.ModelSerializer):
 class BuyingSampleSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Relation
+        model = BuyingSample
         fields = '__all__'
+
+    def create(self, validated_data):
+        print(validated_data)
+        return object

@@ -10,7 +10,7 @@ from django.http import FileResponse
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Sample, Pack, Label, Relation
-from .serializers import SampleSerializer, PackSerializer, LabelSerializer, RelationSerializer
+from .serializers import SampleSerializer, PackSerializer, LabelSerializer, RelationSerializer, BuyingSampleSerializer
 from .services import dec_scrore, is_purchased
 
 """def main_page(request):
@@ -81,14 +81,20 @@ class BuyingSampleView(APIView):
     """ Покупка сэмпла
     """
 
-    queryset = Relation.objects.all()
-    serializer_class = RelationSerializer
+#    queryset = Relation.objects.all()
+#    serializer_class = RelationSerializer
     permission_classes = [IsAuthenticated]
 
     def patch(self, request):
-        dec_scrore(request)
-        is_purchased(request)
+        serializer = BuyingSampleSerializer(data=request.data)
+        print(serializer)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        """dec_scrore(request)
+        serializer = is_purchased(request)
+        serializer.is
 
         cur_score = self.request.user.score
-        print(cur_score)
+        print(cur_score)"""
         return Response({'test': 'Ura'})

@@ -8,6 +8,12 @@ class User(AbstractUser):
     score = models.IntegerField(null=True)
 
 
+class BuyingSample(models.Model):
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    sample = models.ForeignKey('Sample', default=None, on_delete=models.CASCADE)
+    isPurchased = models.BooleanField(default=False)
+
+
 class Relation(models.Model):
     """Отношение между пользователем и сэмплом (Избранное)"""
     objects = models.Manager()
