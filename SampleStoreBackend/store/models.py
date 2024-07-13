@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+5from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from base.services import get_path_upload_sample, get_path_upload_cover
@@ -15,7 +15,7 @@ class BuyingSample(models.Model):
 
 
 class Relation(models.Model):
-    """Отношение между пользователем и сэмплом (Избранное)"""
+    """Отношение между пользователем и сэмплом (Избранное ===)"""
     objects = models.Manager()
 
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
