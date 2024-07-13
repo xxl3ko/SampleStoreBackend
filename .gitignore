@@ -3,7 +3,8 @@
 venv/
 
 .DS_Store
-/SampleStoreBackend/media/
-/app/__pycache__/
+/RuSampleStore/media/
+
+app/__pycache__/
 store/__pycache__/
 store/migrations/__pycache__/
